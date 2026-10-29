@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { LangToggle } from "@/components/ui";
+import { Brand, LangToggle } from "@/components/ui";
 import { createTrip } from "@/lib/state";
 import { useStore } from "@/lib/store";
 import { addDays, parseTime } from "@/lib/time";
@@ -52,7 +52,7 @@ export default function NewTrip() {
     <>
       <header className="topbar">
         <div className="topbar-inner">
-          <Link href="/" className="brand">Footnote<small>行迹</small></Link>
+          <Link href="/" className="brand"><Brand /></Link>
           <span className="grow" />
           <LangToggle />
         </div>

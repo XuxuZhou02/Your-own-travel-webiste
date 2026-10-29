@@ -5,7 +5,7 @@
 // multi-user version of the same model.
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { translate, type MsgKey } from "./i18n";
+import { LANG_SWITCH_ENABLED, translate, type MsgKey } from "./i18n";
 import { demoState } from "./seed";
 import type { State } from "./state";
 import type { Bilingual } from "./types";
@@ -28,7 +28,7 @@ function load(): State {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as State;
-      if (parsed.version === 1) return parsed;
+      if (parsed.version === 1) return LANG_SWITCH_ENABLED ? parsed : { ...parsed, lang: "en" };
     }
   } catch {
     // Unreadable storage falls back to the demo trip.
@@ -83,7 +83,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     [state, act, reset],
   );
 
-  if (!value) return <div className="loading">Footnote · 行迹</div>;
+  if (!value) return <div className="loading">Footnote</div>;
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

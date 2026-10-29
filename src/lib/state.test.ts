@@ -32,7 +32,7 @@ describe("ticket-driven changes on the demo trip", () => {
       "10:00 Louvre Museum",
       "13:30 Café Kitsuné Palais Royal",
       "15:00 Musée d'Orsay",
-      "19:30 Evening · 晚上",
+      "19:30 Dinner near the Seine",
     ]);
     const louvre = s.items.find((i) => i.id === "i3")!;
     expect(louvre).toMatchObject({ fixed: true, fixedReason: "ticket", originalStart: t("09:00") });

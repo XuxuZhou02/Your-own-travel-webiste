@@ -151,6 +151,7 @@ export function createTrip(s: State, input: NewTripInput): string {
       hotel: input.hotel,
       mustSee,
       createdBy: s.me,
+      lang: s.lang,
       now: createdAt,
       newId: () => uid("i"),
     }),
@@ -175,6 +176,7 @@ export function regenerateSkeleton(s: State, tripId: string): void {
     hotel: trip.hotel,
     mustSee,
     createdBy: s.me,
+    lang: s.lang,
     now: now(),
     newId: () => uid("i"),
   }).filter((i) => i.kind === "activity" && validateDay([...kept.filter((k) => k.date === i.date), i]).length === 0);

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { useStore } from "@/lib/store";
 import type { MsgKey } from "@/lib/i18n";
-import { LangToggle } from "./ui";
+import { Brand, LangToggle } from "./ui";
 import { QuickNote } from "./QuickNote";
 
 const ICONS: Record<string, ReactNode> = {
@@ -25,7 +25,7 @@ export function TripShell({ tripId, children }: { tripId: string; children: Reac
   if (!trip) {
     return (
       <div className="page stack center">
-        <h2>Trip not found · 找不到这个行程</h2>
+        <h2>{state.lang === "zh" ? "找不到这个行程" : "Trip not found"}</h2>
         <Link className="btn" href="/">← {t("myTrips")}</Link>
       </div>
     );
@@ -44,7 +44,7 @@ export function TripShell({ tripId, children }: { tripId: string; children: Reac
     <>
       <header className="topbar">
         <div className="topbar-inner">
-          <Link href="/" className="brand">Footnote<small>行迹</small></Link>
+          <Link href="/" className="brand"><Brand /></Link>
           <span className="grow ellipsis muted small">· {trip.name}</span>
           <LangToggle />
         </div>

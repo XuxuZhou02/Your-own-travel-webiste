@@ -1,6 +1,9 @@
 import type { Lang } from "./types";
 
-// The interface is bilingual (product plan, section 12).
+// The interface is bilingual (product plan, section 12). The Chinese
+// strings are kept, but the switch is off until the Chinese version ships.
+export const LANG_SWITCH_ENABLED = false;
+
 const dict = {
   appTagline: { en: "Plan together. Keep every ticket. Get the album for free.", zh: "一起计划，票据不丢，相册自然生成。" },
   myTrips: { en: "My trips", zh: "我的行程" },
@@ -65,7 +68,7 @@ const dict = {
   walk: { en: "min walk", zh: "分钟步行" },
   noLocation: { en: "This item has no map location yet.", zh: "这个项目还没有地图位置。" },
   // places
-  pasteLink: { en: "Paste a link (小红书, Instagram, Google Maps…)", zh: "粘贴链接（小红书、Instagram、Google Maps…）" },
+  pasteLink: { en: "Paste a link (Xiaohongshu, Instagram, Google Maps…)", zh: "粘贴链接（小红书、Instagram、Google Maps…）" },
   placeName: { en: "Place name", zh: "地点名称" },
   why: { en: "Why it's recommended", zh: "推荐理由" },
   addPlace: { en: "Add to pool", zh: "加入地点池" },

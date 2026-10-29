@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { getFile } from "@/lib/files";
+import { LANG_SWITCH_ENABLED } from "@/lib/i18n";
 import { useStore } from "@/lib/store";
 
 export function LangToggle() {
   const { state, act } = useStore();
+  if (!LANG_SWITCH_ENABLED) return null;
   return (
     <button
       className="btn-small"
@@ -57,6 +59,16 @@ export function Sheet({ onClose, children }: { onClose: () => void; children: Re
         {children}
       </div>
     </div>
+  );
+}
+
+/** The wordmark; the Chinese name 行迹 shows only in the Chinese interface. */
+export function Brand() {
+  const { state } = useStore();
+  return (
+    <>
+      Footnote{state.lang === "zh" && <small>行迹</small>}
+    </>
   );
 }
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { LangToggle } from "@/components/ui";
+import { Brand, LangToggle } from "@/components/ui";
 import { clearFiles } from "@/lib/files";
 import { albumProgress, joinTrip } from "@/lib/state";
 import { useStore } from "@/lib/store";
@@ -33,7 +33,7 @@ export default function MyTrips() {
     <>
       <header className="topbar">
         <div className="topbar-inner">
-          <span className="brand">Footnote<small>行迹</small></span>
+          <span className="brand"><Brand /></span>
           <span className="grow" />
           <LangToggle />
         </div>

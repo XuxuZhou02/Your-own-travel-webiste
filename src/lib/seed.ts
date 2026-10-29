@@ -61,10 +61,10 @@ export function demoState(): State {
 
   const sources: Source[] = [
     src("s1", "p-louvre", "googlemaps", gmaps("Louvre Museum"), "u-lin", "Louvre Museum", "Book the earliest slot to beat the queue"),
-    src("s2", "p-fumoir", "xiaohongshu", "https://www.xiaohongshu.com/search_result?keyword=%E5%B7%B4%E9%BB%8E%20%E6%B3%95%E5%BC%8F%E5%90%90%E5%8F%B8", "u-mei", "巴黎 法式吐司", "卢浮宫旁边的法式吐司，小红书上很多人推荐"),
+    src("s2", "p-fumoir", "xiaohongshu", "https://www.xiaohongshu.com/search_result?keyword=%E5%B7%B4%E9%BB%8E%20%E6%B3%95%E5%BC%8F%E5%90%90%E5%8F%B8", "u-mei", "Paris French toast", "The French toast place right behind the Louvre that everyone on Xiaohongshu recommends"),
     src("s3", "p-fumoir", "googlemaps", gmaps("Le Fumoir Paris"), "u-lin", "Le Fumoir", "Right behind the Louvre"),
     src("s4", "p-kitsune", "instagram", "https://www.instagram.com/explore/tags/cafekitsune/", "u-mei", "#cafekitsune", "Matcha latte in the Palais Royal gardens"),
-    src("s5", "p-dupain", "xiaohongshu", "https://www.xiaohongshu.com/search_result?keyword=Du%20Pain%20et%20des%20Id%C3%A9es", "u-mei", "Du Pain et des Idées", "开心果蜗牛包"),
+    src("s5", "p-dupain", "xiaohongshu", "https://www.xiaohongshu.com/search_result?keyword=Du%20Pain%20et%20des%20Id%C3%A9es", "u-mei", "Du Pain et des Idées", "Get the pistachio escargot pastry"),
     src("s6", "p-versailles", "googlemaps", gmaps("Palace of Versailles"), "u-alex", "Palace of Versailles"),
     src("s7", "p-eiffel", "googlemaps", gmaps("Eiffel Tower"), ME, "Eiffel Tower", "Go up after dark for the sparkle"),
     src("s8", "p-angelina", "web", "https://www.angelina-paris.fr/", "u-lin", "Angelina Paris"),
@@ -88,22 +88,22 @@ export function demoState(): State {
   });
 
   const items: ItineraryItem[] = [
-    item("2027-04-12", "15:30", 30, "Check in at hotel · 入住酒店", { kind: "marker" }),
+    item("2027-04-12", "15:30", 30, "Check in at hotel", { kind: "marker" }),
     item("2027-04-12", "19:00", 90, "L'As du Fallafel", { placeId: "p-fallafel" }),
     item("2027-04-13", "09:00", 180, "Louvre Museum", { placeId: "p-louvre" }),
     item("2027-04-13", "12:30", 60, "Café Kitsuné Palais Royal", { placeId: "p-kitsune" }),
     item("2027-04-13", "14:00", 150, "Musée d'Orsay", { placeId: "p-orsay" }),
-    item("2027-04-13", "19:30", 90, "Evening · 晚上"),
+    item("2027-04-13", "19:30", 90, "Dinner near the Seine"),
     item("2027-04-14", "09:30", 300, "Palace of Versailles", { placeId: "p-versailles" }),
     item("2027-04-14", "19:00", 120, "Eiffel Tower", { placeId: "p-eiffel", fixed: true, fixedReason: "ticket", aiGenerated: false }),
     item("2027-04-15", "10:00", 90, "Sainte-Chapelle", { placeId: "p-chapelle" }),
     item("2027-04-15", "12:00", 60, "Shakespeare and Company", { placeId: "p-shakespeare" }),
     item("2027-04-15", "14:00", 120, "Musée Picasso", { placeId: "p-picasso" }),
     item("2027-04-15", "16:30", 60, "Marché des Enfants Rouges", { placeId: "p-enfants" }),
-    item("2027-04-16", "09:30", 150, "Morning · 上午"),
-    item("2027-04-16", "14:00", 150, "Afternoon · 下午"),
-    item("2027-04-16", "19:00", 120, "Evening · 晚上"),
-    item("2027-04-17", "08:00", 30, "Leave for the airport · 出发去机场", { kind: "marker" }),
+    item("2027-04-16", "09:30", 150, "Morning"),
+    item("2027-04-16", "14:00", 150, "Afternoon"),
+    item("2027-04-16", "19:00", 120, "Evening"),
+    item("2027-04-17", "08:00", 30, "Leave for the airport", { kind: "marker" }),
   ];
 
   return {

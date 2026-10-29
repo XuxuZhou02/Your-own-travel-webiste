@@ -3,7 +3,7 @@
 
 import { distanceMeters } from "./geo";
 import { dateRange } from "./time";
-import type { ItineraryItem, LatLng, Pace } from "./types";
+import type { ItineraryItem, Lang, LatLng, Pace } from "./types";
 
 export interface SkeletonInput {
   tripId: string;
@@ -18,6 +18,8 @@ export interface SkeletonInput {
   createdBy: string;
   now: string;
   newId: () => string;
+  /** Language for generated titles. */
+  lang?: Lang;
 }
 
 interface Slot {
@@ -95,7 +97,7 @@ export function generateSkeleton(input: SkeletonInput): ItineraryItem[] {
         ...base,
         id: input.newId(),
         date,
-        title: "Check in at hotel · 入住酒店",
+        title: input.lang === "zh" ? "入住酒店" : "Check in at hotel",
         start: Math.min(input.arrivalTime + 60, 23 * 60),
         duration: 30,
         kind: "marker",
@@ -107,7 +109,7 @@ export function generateSkeleton(input: SkeletonInput): ItineraryItem[] {
         ...base,
         id: input.newId(),
         date,
-        title: pick?.name ?? `${slot.label.en} · ${slot.label.zh}`,
+        title: pick?.name ?? slot.label[input.lang ?? "en"],
         placeId: pick?.placeId,
         start: slot.start,
         duration: slot.duration,

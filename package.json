@@ -2,7 +2,7 @@
   "name": "footnote",
   "version": "0.1.0",
   "private": true,
-  "description": "Footnote (行迹): a shared travel workspace for friend groups that turns into a photo album after the trip.",
+  "description": "Footnote: a shared travel workspace for friend groups that turns into a photo album after the trip.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

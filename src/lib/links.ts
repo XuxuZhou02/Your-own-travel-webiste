@@ -18,7 +18,7 @@ const PATTERNS: [Platform, RegExp][] = [
 ];
 
 export const PLATFORM_LABEL: Record<Platform, string> = {
-  xiaohongshu: "小红书",
+  xiaohongshu: "Xiaohongshu",
   instagram: "Instagram",
   tiktok: "TikTok",
   youtube: "YouTube",
