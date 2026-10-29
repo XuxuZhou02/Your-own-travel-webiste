@@ -110,6 +110,18 @@ supabase/schema.sql      multi-user database schema with row-level security by t
 public/                  PWA manifest, icon, service worker
 ```
 
+## 🛋 Memory space (concept art)
+
+Coming in phase 3: each user picks a cozy scene as their own space, where finished trip albums wait on the shelf. Five candidate scenes, with AI image prompts, are in [`docs/scenes`](docs/scenes).
+
+<p>
+  <img src="docs/scenes/1-rainy-afternoon.jpg" width="19%" alt="Rainy Afternoon">
+  <img src="docs/scenes/2-winter-fireplace.jpg" width="19%" alt="Winter by the Fireplace">
+  <img src="docs/scenes/3-slow-sunday-morning.jpg" width="19%" alt="Slow Sunday Morning">
+  <img src="docs/scenes/4-autumn-cabin-evening.jpg" width="19%" alt="Autumn Cabin Evening">
+  <img src="docs/scenes/5-midnight-nostalgia.jpg" width="19%" alt="Midnight Nostalgia">
+</p>
+
 ## 🗺 Roadmap
 
 - [x] Phase 1 prototype: AI draft, place pool, ticket wallet, ticket-driven changes, check-in photos, automatic album, Note this (text and voice)
