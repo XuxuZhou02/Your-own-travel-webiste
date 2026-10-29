@@ -186,6 +186,11 @@ label.field > span { font-weight: 500; }
   position: absolute; left: 4%; right: 4%; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 3;
   background: rgba(250,246,239,.78); backdrop-filter: blur(8px); border-radius: 16px; padding: 10px 14px 0; box-shadow: 0 8px 24px rgba(40,25,10,.25);
 }
+.shelf-head { display: flex; align-items: baseline; gap: 8px; width: 100%; padding: 0; min-height: 0; background: none; border: none; text-align: left; }
+.shelf-chevron { font-size: 16px; line-height: 1; color: var(--muted); transition: transform .2s ease; }
+.space-shelf.closed { padding-bottom: 8px; }
+.space-shelf.closed .shelf-chevron { transform: rotate(180deg); }
+.space-shelf.closed .ledge { margin-top: 8px; }
 .spines { display: flex; align-items: flex-end; gap: 6px; min-height: 96px; padding: 8px 2px 0; overflow-x: auto; }
 .spine {
   flex: 0 0 auto; width: 42px; border-radius: 4px 4px 2px 2px; text-decoration: none; color: #fff7ec; position: relative;
@@ -211,6 +216,8 @@ label.field > span { font-weight: 500; }
 .fx { position: absolute; overflow: hidden; pointer-events: none; z-index: 1; }
 .fx i { position: absolute; display: block; }
 .fx-rain i { top: -15%; width: 1px; height: calc(6% + var(--s) * 7%); background: linear-gradient(rgba(255,255,255,0), rgba(235,242,248,.75)); animation: fx-fall linear infinite; }
+.fx-storm i { top: -15%; width: 1.5px; height: calc(8% + var(--s) * 8%); background: linear-gradient(rgba(255,255,255,0), rgba(225,235,245,.7)); animation: fx-fall-storm linear infinite; }
+.fx-storm::after { content: ""; position: absolute; inset: 0; background: #fff; opacity: 0; animation: fx-flash 11s linear infinite; }
 .fx-snow i { top: -5%; width: calc(3px + var(--s) * 4px); aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,.9); animation: fx-snow linear infinite; }
 .fx-leaves i { top: -8%; width: calc(7px + var(--s) * 6px); height: calc(4px + var(--s) * 3px); border-radius: 60% 0; background: hsl(calc(20 + var(--s) * 25) 75% 52%); animation: fx-leaf linear infinite; }
 .fx-stars i { width: calc(2px + var(--s) * 2px); aspect-ratio: 1; border-radius: 50%; background: #fff6dd; box-shadow: 0 0 6px #fff6dd; animation: fx-twinkle ease-in-out infinite; }
@@ -219,6 +226,8 @@ label.field > span { font-weight: 500; }
 .fx-glow { position: absolute; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; z-index: 1; mix-blend-mode: screen; animation: fx-breathe 6s ease-in-out infinite; }
 .fx-glow.flicker { animation: fx-flicker 1.8s ease-in-out infinite; }
 @keyframes fx-fall { to { top: 110%; transform: translateX(-6px); } }
+@keyframes fx-fall-storm { to { top: 110%; transform: translateX(-28px); } }
+@keyframes fx-flash { 0%, 86% { opacity: 0; } 87% { opacity: .45; } 88% { opacity: 0; } 90% { opacity: .3; } 92%, 100% { opacity: 0; } }
 @keyframes fx-snow { 0% { top: -5%; transform: translateX(0); } 50% { transform: translateX(10px); } 100% { top: 105%; transform: translateX(-4px); } }
 @keyframes fx-leaf { 0% { top: -8%; transform: translateX(0) rotate(0); } 50% { transform: translateX(26px) rotate(160deg); } 100% { top: 108%; transform: translateX(-6px) rotate(320deg); } }
 @keyframes fx-twinkle { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
@@ -226,7 +235,7 @@ label.field > span { font-weight: 500; }
 @keyframes fx-beam { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
 @keyframes fx-breathe { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
 @keyframes fx-flicker { 0%, 100% { opacity: .9; } 20% { opacity: .65; } 45% { opacity: 1; } 70% { opacity: .75; } }
-@media (prefers-reduced-motion: reduce) { .fx, .fx i, .fx-glow { animation: none !important; } .fx-rain i, .fx-snow i, .fx-leaves i { display: none; } }
+@media (prefers-reduced-motion: reduce) { .fx, .fx i, .fx-glow { animation: none !important; } .fx-rain i, .fx-storm i, .fx-snow i, .fx-leaves i { display: none; } }
 
 /* memory space entry on the home page */
 .space-card { position: relative; display: block; height: 150px; border-radius: var(--radius); overflow: hidden; text-decoration: none; color: #fff; }

@@ -130,7 +130,7 @@ export function demoState(): State {
     version: 1,
     lang: "en",
     me: ME,
-    scene: "rainy-afternoon",
+    scene: "summer-morning",
     users,
     trips: [
       {

@@ -113,13 +113,13 @@ public/                  PWA manifest, icon, service worker, scene images
 
 ## 🛋 Memory space
 
-Your own cozy scene to come back to, with every finished trip album standing on the shelf. Pick from five watercolor scenes, each with its own light motion (rain, snow, sunlight, falling leaves, stars). Open it from **My memory space** on the home screen. Details and prompts for making more scenes are in [`docs/scenes`](docs/scenes).
+Your own cozy room to come back to, with every finished trip album standing on the shelf. Pick from five scenes, from a summer morning to a snowy night, each with its own light motion (sunlight, falling leaves, a storm, snow, stars). Open it from **My memory space** on the home screen. Details and prompts for making more scenes are in [`docs/scenes`](docs/scenes).
 
 <p>
-  <img src="docs/images/space.jpg" width="24%" alt="Memory space: Winter by the Fireplace with the album shelf">
-  <img src="public/scenes/rainy-afternoon.jpg" width="14.5%" alt="Rainy Afternoon">
-  <img src="public/scenes/slow-sunday-morning.jpg" width="14.5%" alt="Slow Sunday Morning">
-  <img src="public/scenes/autumn-cabin-evening.jpg" width="14.5%" alt="Autumn Cabin Evening">
+  <img src="docs/images/space.jpg" width="24%" alt="Memory space: Autumn Afternoon with the album shelf">
+  <img src="public/scenes/summer-morning.jpg" width="14.5%" alt="Summer Morning">
+  <img src="public/scenes/stormy-evening.jpg" width="14.5%" alt="Stormy Evening">
+  <img src="public/scenes/winter-fireplace.jpg" width="14.5%" alt="Winter by the Fireplace">
   <img src="public/scenes/midnight-nostalgia.jpg" width="14.5%" alt="Midnight Nostalgia">
 </p>
 

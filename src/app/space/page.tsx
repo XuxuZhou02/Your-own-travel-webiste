@@ -18,6 +18,7 @@ function rng(seed: number) {
 /** Animation length per effect: [shortest, extra random spread] in seconds. */
 const DURATION: Record<SceneEffect, [number, number]> = {
   rain: [0.6, 0.5],
+  storm: [0.4, 0.3],
   snow: [7, 6],
   leaves: [6, 4],
   stars: [3, 4],
@@ -30,7 +31,7 @@ const pct = (r: Rect) => ({ left: `${r.left}%`, top: `${r.top}%`, width: `${r.wi
 function Effects({ scene }: { scene: Scene }) {
   const particles = useMemo(() => {
     const r = rng(scene.id.length * 7919);
-    const count = { rain: 46, snow: 40, sun: 14, leaves: 12, stars: 12 }[scene.effect];
+    const count = { rain: 46, storm: 70, snow: 40, sun: 14, leaves: 12, stars: 12 }[scene.effect];
     return Array.from({ length: count }, () => ({
       x: r() * 100,
       y: r() * 100,
@@ -79,6 +80,7 @@ function Effects({ scene }: { scene: Scene }) {
 export default function MemorySpace() {
   const { state, act } = useStore();
   const [picking, setPicking] = useState(false);
+  const [shelfOpen, setShelfOpen] = useState(true);
   const scene = getScene(state.scene);
 
   const mine = state.trips.filter((trip) => state.members.some((m) => m.tripId === trip.id && m.userId === state.me));
@@ -99,34 +101,37 @@ export default function MemorySpace() {
           <button className="space-pill" onClick={() => setPicking(true)}>✦ {scene.name}</button>
         </div>
 
-        <div className="space-shelf">
-          <div className="spread" style={{ alignItems: "baseline" }}>
+        <div className={`space-shelf${shelfOpen ? "" : " closed"}`}>
+          <button className="shelf-head" onClick={() => setShelfOpen(!shelfOpen)} aria-expanded={shelfOpen}>
             <h3>My albums</h3>
-            <span className="tiny muted">
+            <span className="tiny muted grow" style={{ textAlign: "right" }}>
               {finished} on the shelf{shelf.length > finished ? ` · ${shelf.length - finished} in progress` : ""}
             </span>
-          </div>
-          <div className="spines">
-            {shelf.length === 0 && <p className="small muted">Albums appear here when a trip is checked in.</p>}
-            {shelf.map(({ trip, progress, done }) => {
-              const days = Math.round((Date.parse(trip.endDate) - Date.parse(trip.startDate)) / 864e5) + 1;
-              return (
-                <Link
-                  key={trip.id}
-                  href={`/trips/${trip.id}/album`}
-                  className={`spine${done ? "" : " ghost"}`}
-                  style={{
-                    height: `${Math.min(118, 84 + days * 6)}px`,
-                    ["--spine" as string]: THEME_SPINE[trip.albumTheme] ?? THEME_SPINE.film,
-                  }}
-                  title={done ? `${trip.name} — open the album` : `${trip.name} — ${progress.done}/${progress.total} checked in`}
-                >
-                  <span className="spine-title">{trip.destination}</span>
-                  <span className="spine-year">{done ? trip.startDate.slice(2, 4) : `${progress.done}/${progress.total}`}</span>
-                </Link>
-              );
-            })}
-          </div>
+            <span className="shelf-chevron" aria-hidden>⌄</span>
+          </button>
+          {shelfOpen && (
+            <div className="spines">
+              {shelf.length === 0 && <p className="small muted">Albums appear here when a trip is checked in.</p>}
+              {shelf.map(({ trip, progress, done }) => {
+                const days = Math.round((Date.parse(trip.endDate) - Date.parse(trip.startDate)) / 864e5) + 1;
+                return (
+                  <Link
+                    key={trip.id}
+                    href={`/trips/${trip.id}/album`}
+                    className={`spine${done ? "" : " ghost"}`}
+                    style={{
+                      height: `${Math.min(118, 84 + days * 6)}px`,
+                      ["--spine" as string]: THEME_SPINE[trip.albumTheme] ?? THEME_SPINE.film,
+                    }}
+                    title={done ? `${trip.name} — open the album` : `${trip.name} — ${progress.done}/${progress.total} checked in`}
+                  >
+                    <span className="spine-title">{trip.destination}</span>
+                    <span className="spine-year">{done ? trip.startDate.slice(2, 4) : `${progress.done}/${progress.total}`}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
           <div className="ledge" />
         </div>
       </div>
