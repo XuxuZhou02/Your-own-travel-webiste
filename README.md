@@ -58,6 +58,7 @@
 - **Check-ins and photos**: "I'm here" and a camera on every item. A compressed copy is used for browsing; originals are kept.
 - **Automatic album**: cover, a chapter per day, a page per place, trip stats; three themes; print or save as PDF.
 - **Note this**: type or say one sentence and it becomes a note, to-do, reminder, new place, itinerary change or question. New places and itinerary changes show a preview first. Questions are answered only from this trip's data.
+- **Memory space**: a cozy scene of your choice with every finished album on the shelf.
 - **Mobile first** and installable to the home screen.
 
 ## 🤖 AI drafts, people confirm
@@ -104,32 +105,33 @@ src/
     ai/                  the single AI interface + offline rule-based provider
     types.ts             data model
     geo.ts · links.ts · time.ts · i18n.ts · files.ts · seed.ts
-  app/                   Next.js pages (five bottom tabs)
+  app/                   Next.js pages (five bottom tabs, plus /space)
   components/            shared UI
 supabase/schema.sql      multi-user database schema with row-level security by trip membership
-public/                  PWA manifest, icon, service worker
+public/                  PWA manifest, icon, service worker, scene images
 ```
 
-## 🛋 Memory space (concept art)
+## 🛋 Memory space
 
-Coming in phase 3: each user picks a cozy scene as their own space, where finished trip albums wait on the shelf. Five candidate scenes, with AI image prompts, are in [`docs/scenes`](docs/scenes).
+Your own cozy scene to come back to, with every finished trip album standing on the shelf. Pick from five watercolor scenes, each with its own light motion (rain, snow, sunlight, falling leaves, stars). Open it from **My memory space** on the home screen. Details and prompts for making more scenes are in [`docs/scenes`](docs/scenes).
 
 <p>
-  <img src="docs/scenes/1-rainy-afternoon.jpg" width="19%" alt="Rainy Afternoon">
-  <img src="docs/scenes/2-winter-fireplace.jpg" width="19%" alt="Winter by the Fireplace">
-  <img src="docs/scenes/3-slow-sunday-morning.jpg" width="19%" alt="Slow Sunday Morning">
-  <img src="docs/scenes/4-autumn-cabin-evening.jpg" width="19%" alt="Autumn Cabin Evening">
-  <img src="docs/scenes/5-midnight-nostalgia.jpg" width="19%" alt="Midnight Nostalgia">
+  <img src="docs/images/space.jpg" width="24%" alt="Memory space: Winter by the Fireplace with the album shelf">
+  <img src="public/scenes/rainy-afternoon.jpg" width="14.5%" alt="Rainy Afternoon">
+  <img src="public/scenes/slow-sunday-morning.jpg" width="14.5%" alt="Slow Sunday Morning">
+  <img src="public/scenes/autumn-cabin-evening.jpg" width="14.5%" alt="Autumn Cabin Evening">
+  <img src="public/scenes/midnight-nostalgia.jpg" width="14.5%" alt="Midnight Nostalgia">
 </p>
 
 ## 🗺 Roadmap
 
 - [x] Phase 1 prototype: AI draft, place pool, ticket wallet, ticket-driven changes, check-in photos, automatic album, Note this (text and voice)
+- [x] Memory space: five scenes with light motion and an album shelf
 - [ ] Supabase: sign-in, multi-user realtime sync, private file storage (`supabase/schema.sql` is written but hasn't been run against a database)
 - [ ] Real models: multimodal ticket reading, a small model for sorting notes, a daily call limit per trip
 - [ ] Maps service: place search and coordinates
 - [ ] Phase 2: daily brief, expense log and splitting, forward-to-email tickets, viewer role
-- [ ] Phase 3: memory space, year-end footprint map, trip soundtrack
+- [ ] Phase 3: year-end footprint map, trip soundtrack, souvenirs appearing in the memory space
 
 See section 9 of the [product plan](docs/product-plan.md).
 

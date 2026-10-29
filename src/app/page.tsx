@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Brand, LangToggle } from "@/components/ui";
 import { clearFiles } from "@/lib/files";
-import { albumProgress, joinTrip } from "@/lib/state";
+import { getScene } from "@/lib/scenes";
+import { albumProgress, albumReady, joinTrip } from "@/lib/state";
 import { useStore } from "@/lib/store";
 import { formatDate } from "@/lib/time";
 
@@ -19,8 +20,9 @@ export default function MyTrips() {
   const mine = state.trips
     .filter((trip) => state.members.some((m) => m.tripId === trip.id && m.userId === state.me))
     .sort((a, b) => {
-      const live = (x: typeof a) => (x.startDate <= today && today <= x.endDate ? 0 : 1);
-      return live(a) - live(b) || a.startDate.localeCompare(b.startDate);
+      // Current trip first, then upcoming ones soonest first, then past ones most recent first.
+      const rank = (x: typeof a) => (x.startDate <= today && today <= x.endDate ? 0 : x.startDate > today ? 1 : 2);
+      return rank(a) - rank(b) || (rank(a) === 2 ? b.startDate.localeCompare(a.startDate) : a.startDate.localeCompare(b.startDate));
     });
 
   const join = () => {
@@ -43,6 +45,16 @@ export default function MyTrips() {
           <h1>{t("myTrips")}</h1>
           <p className="muted">{t("appTagline")}</p>
         </div>
+
+        <Link href="/space" className="space-card">
+          <img src={getScene(state.scene).src} alt="" />
+          <div>
+            <h2>My memory space</h2>
+            <p className="small" style={{ opacity: 0.9 }}>
+              {mine.filter((trip) => albumReady(state, trip)).length} albums on the shelf · {getScene(state.scene).name}
+            </p>
+          </div>
+        </Link>
 
         {mine.map((trip) => {
           const live = trip.startDate <= today && today <= trip.endDate;

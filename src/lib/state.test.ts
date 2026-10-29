@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { demoState } from "./seed";
 import {
   addPlace,
+  albumReady,
   applyProposal,
   confirmTicket,
   dayItems,
@@ -125,5 +126,13 @@ describe("quick notes", () => {
       "Still pending: Louvre Museum (2027-04-13).",
     );
     expect(fileQuickNote(s, TRIP, "Where is the nearest pharmacy?").answer!.en).toBe("I couldn't find that in this trip.");
+  });
+});
+
+describe("albums", () => {
+  it("counts finished demo trips as ready and the upcoming one as not", () => {
+    const s = demoState();
+    const ready = s.trips.filter((x) => albumReady(s, x)).map((x) => x.id);
+    expect(ready).toEqual(["trip-kyoto", "trip-lisbon"]);
   });
 });

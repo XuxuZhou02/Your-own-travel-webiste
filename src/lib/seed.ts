@@ -2,7 +2,7 @@
 // in Paris, with a pending Louvre ticket whose time differs from the plan.
 
 import type { State } from "./state";
-import type { ItineraryItem, Place, Source } from "./types";
+import type { ItineraryItem, Member, Place, QuickNote, Source, Trip } from "./types";
 import { parseTime as t } from "./time";
 
 const NOW = "2026-10-29T09:00:00.000Z";
@@ -106,10 +106,31 @@ export function demoState(): State {
     item("2027-04-17", "08:00", 30, "Leave for the airport", { kind: "marker" }),
   ];
 
+  const past = [
+    pastTrip("trip-kyoto", "Kyoto in November", "Kyoto", "2025-11-14", "film", users, [
+      ["2025-11-14", "08:00", "Fushimi Inari Taisha", "We reached the top just as the sun came through the gates.", "u-mei"],
+      ["2025-11-14", "12:30", "Nishiki Market", "Sam ate four skewers of tamagoyaki. Four.", "u-lin"],
+      ["2025-11-15", "09:00", "Kiyomizu-dera", "The whole hillside was red.", "u-alex"],
+      ["2025-11-15", "11:30", "Sannenzaka", "", ""],
+      ["2025-11-15", "17:00", "Gion at dusk", "Lanterns coming on one by one.", "u-sam"],
+      ["2025-11-16", "08:30", "Arashiyama Bamboo Grove", "Early was worth it, almost nobody there.", ME],
+      ["2025-11-16", "10:30", "Tenryū-ji", "", ""],
+      ["2025-11-17", "09:00", "Philosopher's Path", "Last walk. Nobody wanted to talk about the flight.", "u-mei"],
+    ]),
+    pastTrip("trip-lisbon", "Lisbon long weekend", "Lisbon", "2026-04-03", "mist", users.slice(0, 3), [
+      ["2026-04-03", "10:00", "Alfama", "Got lost on purpose.", "u-lin"],
+      ["2026-04-03", "15:00", "Tram 28", "", ""],
+      ["2026-04-04", "10:00", "Pastéis de Belém", "Still warm. We went back for a second box.", "u-sam"],
+      ["2026-04-04", "15:00", "LX Factory", "", ""],
+      ["2026-04-05", "19:30", "Miradouro da Senhora do Monte", "Best sunset of the trip.", ME],
+    ]),
+  ];
+
   return {
     version: 1,
     lang: "en",
     me: ME,
+    scene: "rainy-afternoon",
     users,
     trips: [
       {
@@ -130,11 +151,15 @@ export function demoState(): State {
         createdBy: ME,
         createdAt: NOW,
       },
+      ...past.map((p) => p.trip),
     ],
-    members: users.map((u, i) => ({ tripId: TRIP, userId: u.id, role: i === 0 ? "organizer" : "member", joinedAt: NOW })),
+    members: [
+      ...users.map((u, i): Member => ({ tripId: TRIP, userId: u.id, role: i === 0 ? "organizer" : "member", joinedAt: NOW })),
+      ...past.flatMap((p) => p.members),
+    ],
     places,
     sources,
-    items,
+    items: [...items, ...past.flatMap((p) => p.items)],
     tickets: [
       {
         id: "t-louvre",
@@ -167,10 +192,67 @@ export function demoState(): State {
     ],
     photos: [],
     changeLog: [],
-    notes: [],
+    notes: past.flatMap((p) => p.notes),
     todos: [
       { id: "td1", tripId: TRIP, text: "Book a restaurant for Friday night", done: false, assignee: "u-sam", createdBy: "u-sam", createdAt: NOW },
     ],
     reminders: [],
+  };
+}
+
+type Stop = [date: string, time: string, title: string, note: string, noteBy: string];
+
+/** A finished trip: every stop checked in and the album already made. */
+function pastTrip(
+  id: string,
+  name: string,
+  destination: string,
+  startDate: string,
+  albumTheme: string,
+  users: { id: string }[],
+  stops: Stop[],
+): { trip: Trip; members: Member[]; items: ItineraryItem[]; notes: QuickNote[] } {
+  const endDate = stops[stops.length - 1][0];
+  const items = stops.map(([date, time, title], i): ItineraryItem => ({
+    id: `${id}-i${i}`,
+    tripId: id,
+    date,
+    title,
+    start: t(time),
+    duration: 120,
+    fixed: false,
+    kind: "activity",
+    checkedIn: true,
+    aiGenerated: false,
+    createdBy: ME,
+    createdAt: NOW,
+  }));
+  const notes = stops.flatMap(([, , , text, by], i): QuickNote[] =>
+    text
+      ? [{ id: `${id}-n${i}`, tripId: id, text, kind: "note", targetId: items[i].id, visibility: "group", undone: false, createdBy: by, createdAt: NOW }]
+      : [],
+  );
+  return {
+    trip: {
+      id,
+      name,
+      destination,
+      startDate,
+      endDate,
+      arrivalTime: t("10:00"),
+      departureTime: t("18:00"),
+      groupSize: users.length,
+      hotelName: "",
+      pace: "moderate",
+      inviteCode: id.slice(5, 11).toUpperCase(),
+      timeZone: "local",
+      albumTheme,
+      albumGeneratedAt: NOW,
+      createdBy: ME,
+      createdAt: NOW,
+    },
+    members: users.map((u, i) => ({ tripId: id, userId: u.id, role: i === 0 ? "organizer" : "member", joinedAt: NOW })),
+    items,
+    notes,
   };
 }

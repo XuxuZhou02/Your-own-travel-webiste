@@ -1,34 +1,37 @@
 # Memory space scenes
 
-Concept art for the **memory space** (product plan, section 4.9): a cozy scene each user picks as their own place to come back to, where their trip albums wait on the shelf. Five candidates, drawn in one style and palette so any of them sits naturally next to the app.
+The memory space (product plan, section 4.9) is each user's own cozy scene to come back to, with their finished trip albums standing on a shelf in front of it. It lives at `/space` in the app; pick a scene with the button at the top right.
 
-Each scene is an animated SVG (open it in a browser to see the rain, snow, fire, steam, falling leaves and twinkling lights) with a still JPG next to it.
+| | | | | |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="../../public/scenes/rainy-afternoon.jpg" alt="Rainy Afternoon"> | <img src="../../public/scenes/winter-fireplace.jpg" alt="Winter by the Fireplace"> | <img src="../../public/scenes/slow-sunday-morning.jpg" alt="Slow Sunday Morning"> | <img src="../../public/scenes/autumn-cabin-evening.jpg" alt="Autumn Cabin Evening"> | <img src="../../public/scenes/midnight-nostalgia.jpg" alt="Midnight Nostalgia"> |
+| **Rainy Afternoon** | **Winter by the Fireplace** | **Slow Sunday Morning** | **Autumn Cabin Evening** | **Midnight Nostalgia** |
 
-| | |
+## In the app
+
+- **The scene** fills the screen (a centered phone-shaped stage on desktop, with a blurred copy behind it).
+- **The shelf** at the bottom holds one spine per trip, colored by the album's theme. Finished albums are solid; trips still in progress are dashed outlines with their check-in count. Tap a spine to open the album.
+- **Light motion** plays over each picture, lined up with its window, lamp or fire. It turns off when the device asks for reduced motion.
+
+| Scene | Motion |
 | --- | --- |
-| <img src="1-rainy-afternoon.svg" alt="Rainy Afternoon"><br>**1. Rainy Afternoon**<br><sub>Rain on the glass, a cream sofa, a knit blanket, a warm floor lamp, milk tea</sub> | <img src="2-winter-fireplace.svg" alt="Winter by the Fireplace"><br>**2. Winter by the Fireplace**<br><sub>Snow outside, a crackling fire, a thick rug, hot cocoa and cookies</sub> |
-| <img src="3-slow-sunday-morning.svg" alt="Slow Sunday Morning"><br>**3. Slow Sunday Morning**<br><sub>Sun through linen curtains, white bedding, a sleeping cat, coffee</sub> | <img src="4-autumn-cabin-evening.svg" alt="Autumn Cabin Evening"><br>**4. Autumn Cabin Evening**<br><sub>A log cabin, golden leaves falling, string lights, a plaid shawl, a vanilla candle</sub> |
-| <img src="5-midnight-nostalgia.svg" alt="Midnight Nostalgia"><br>**5. Midnight Nostalgia**<br><sub>An amber bedside lamp, warm milk, a spinning record, moon and stars</sub> | |
+| Rainy Afternoon | Rain streaks on the window, the floor lamp's glow breathing |
+| Winter by the Fireplace | Snow falling outside, firelight flickering, lamp glow |
+| Slow Sunday Morning | A slow sunbeam and dust motes in the light |
+| Autumn Cabin Evening | Leaves blowing past the window, candle flicker, string-light glow |
+| Midnight Nostalgia | Stars twinkling in the window, the bedside lamp's glow |
 
-## What moves
-
-| Scene | Animation |
-| --- | --- |
-| Rainy Afternoon | Rain streaks, drops sliding down the glass, steam from the tea, lamp glow breathing |
-| Winter by the Fireplace | Snowfall, flickering flames and candles, firelight pulsing on the room, cocoa steam |
-| Slow Sunday Morning | Curtain swaying, sunbeam brightening and fading, the cat breathing, coffee steam |
-| Autumn Cabin Evening | Leaves falling past the window, string lights twinkling, candle flame |
-| Midnight Nostalgia | Stars twinkling, the record spinning, music notes drifting up, lamp glow |
+Scene images are in `public/scenes/` (470×1024). The positions of the effects are set per scene in `src/lib/scenes.ts`; adding a scene means adding an image and an entry there.
 
 ## Prompts for AI image tools
 
-These illustrations are hand-drawn vector art. For richer, painterly versions, use the prompts below in Midjourney, DALL·E, Ideogram or similar. Each prompt ends with the same style line so the five results match. Swap it for the photographic line to get realistic photos instead.
+Use these prompts to make more scenes in the same spirit (Midjourney, DALL·E, Ideogram or similar). Each prompt ends with the same style line so the results match; the watercolor line below matches the current set.
 
-**Shared style line (illustrated):**
-`cozy flat illustration, soft grain texture, warm muted palette, gentle lighting, no text, wide 3:2 composition`
+**Shared style line (watercolor, matches the current set):**
+`cozy watercolor and ink illustration, soft warm palette, gentle lighting, storybook feel, no text, tall 9:19.5 phone composition`
 
 **Alternative style line (photographic):**
-`cinematic photograph, 35mm film, shallow depth of field, soft natural light, warm color grade, no text, 3:2`
+`cinematic photograph, 35mm film, shallow depth of field, soft natural light, warm color grade, no text, tall 9:19.5 phone composition`
 
 1. **Rainy Afternoon**
    > A young woman curled up on a soft cream sofa by a large window on a drizzly autumn afternoon, a thick chunky-knit blanket over her legs, slowly turning the pages of a thick old photo album on her lap, smiling faintly as her fingertip traces the edge of a photo. Raindrops run down the glass, only a warm yellow floor lamp is on, a steaming cup of milk tea on the side table. Mood: rain sounds, cream tones, knit blanket, warm lamp, nostalgia. + style line
@@ -46,6 +49,6 @@ These illustrations are hand-drawn vector art. For richer, painterly versions, u
    > Late at night, a bedroom lit only by a small amber bedside lamp. A young woman in soft long-sleeved pajamas sits on a bed with cream-white sheets, leaning against big fluffy pillows, a thick photo album on her lap, pausing on an old photo as she remembers. A glass of warm milk on the nightstand, a record player softly playing jazz in the corner, moon and stars through the window. Mood: amber light, midnight, warm milk, jazz, intimate. + style line
 
 **Tips**
-- Add `--ar 3:2` in Midjourney, or ask for a 1536×1024 image elsewhere.
-- For a set that looks like one family, generate scene 1 first, then pass it as a style reference (`--sref <image url>` in Midjourney) for the other four.
-- For the app, leave some empty wall or shelf space in each scene, which is where the album rack will go.
+- Add `--ar 9:19` in Midjourney, or ask for a tall phone-sized image (at least 1170×2532 for sharp results on modern phones).
+- To match the current set, pass one of the images below as a style reference (`--sref <image url>` in Midjourney).
+- Keep the bottom quarter calm (rug, floor, blanket): the album shelf sits over it in the app.

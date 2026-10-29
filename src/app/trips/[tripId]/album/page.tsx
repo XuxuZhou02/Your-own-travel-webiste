@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { FileImage, UserName } from "@/components/ui";
 import { getFile } from "@/lib/files";
 import { PLATFORM_LABEL, type Platform } from "@/lib/links";
-import { albumProgress, dayItems, tripDays } from "@/lib/state";
+import { albumProgress, albumReady, dayItems, tripDays } from "@/lib/state";
 import { useStore } from "@/lib/store";
 import { formatDate, formatTime } from "@/lib/time";
 import type { Photo } from "@/lib/types";
@@ -56,7 +56,7 @@ export default function AlbumPage() {
   const [suggested, setSuggested] = useState<string | null>(null);
   const [showLinks, setShowLinks] = useState(true);
   const isOrganizer = state.members.some((m) => m.tripId === tripId && m.userId === state.me && m.role === "organizer");
-  const ready = !!trip.albumGeneratedAt || (total > 0 && done === total);
+  const ready = albumReady(state, trip);
 
   const photoKey = visible.map((p) => p.id).join();
   useEffect(() => {

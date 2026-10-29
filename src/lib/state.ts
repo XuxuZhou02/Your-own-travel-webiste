@@ -35,6 +35,8 @@ export interface State {
   version: 1;
   lang: Lang;
   me: string;
+  /** The memory space scene this user picked. */
+  scene?: string;
   users: User[];
   trips: Trip[];
   members: Member[];
@@ -554,6 +556,12 @@ export function answerQuestion(s: State, tripId: string, text: string): Bilingua
 export function albumProgress(s: State, tripId: string) {
   const activities = s.items.filter((i) => i.tripId === tripId && i.kind === "activity");
   return { done: activities.filter((i) => i.checkedIn).length, total: activities.length };
+}
+
+/** An album is ready once every stop is checked in, or the organizer generated it. */
+export function albumReady(s: State, trip: Trip): boolean {
+  const { done, total } = albumProgress(s, trip.id);
+  return !!trip.albumGeneratedAt || (total > 0 && done === total);
 }
 
 export function tripDays(trip: Trip): string[] {
